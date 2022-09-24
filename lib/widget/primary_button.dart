@@ -6,11 +6,13 @@ class PrimaryButton extends StatelessWidget {
     required this.text,
     required this.onPressed,
     this.small = false,
+    this.isLoading = false,
   });
 
   final String text;
   final void Function() onPressed;
   final bool small;
+  final bool isLoading;
 
   @override
   Widget build(BuildContext context) {
@@ -27,10 +29,21 @@ class PrimaryButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(6),
         ),
       ),
-      child: Text(
-        text,
-        style: const TextStyle(fontWeight: FontWeight.w400),
-      ),
+      child: isLoading
+          ? const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 19),
+              child: SizedBox(
+                height: 16,
+                width: 16,
+                child: CircularProgressIndicator(
+                  strokeWidth: 2,
+                ),
+              ),
+            )
+          : Text(
+              text,
+              style: const TextStyle(fontWeight: FontWeight.w400),
+            ),
     );
   }
 }

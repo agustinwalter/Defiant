@@ -1,5 +1,7 @@
+import 'package:defiant/cubit/poap_cubit.dart';
 import 'package:defiant/widget/poap_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ListScreen extends StatelessWidget {
   const ListScreen({super.key});
@@ -18,15 +20,20 @@ class ListScreen extends StatelessWidget {
         elevation: 0,
         titleSpacing: 0,
       ),
-      body: Center(
-        child: GridView.count(
-          crossAxisCount: 2,
-          padding: const EdgeInsets.all(22),
-          mainAxisSpacing: 18,
-          crossAxisSpacing: 18,
-          childAspectRatio: .66,
-          children: List.generate(10, (index) => PoapCard(index: index)),
-        ),
+      body: BlocBuilder<PoapCubit, PoapState>(
+        builder: (_, state) {
+          if (state is PoapsLoaded) {
+            return GridView.count(
+              crossAxisCount: 2,
+              padding: const EdgeInsets.all(22),
+              mainAxisSpacing: 18,
+              crossAxisSpacing: 18,
+              childAspectRatio: .66,
+              children: state.poaps.map((p) => PoapCard(poap: p)).toList(),
+            );
+          }
+          return const SizedBox.shrink();
+        },
       ),
     );
   }
