@@ -1,3 +1,4 @@
+import 'package:defiant/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(const Defiant());
@@ -10,10 +11,8 @@ class Defiant extends StatelessWidget {
     return MaterialApp(
       title: 'Defiant',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const Scaffold(body: Center(child: Text('Defiant'))),
+      theme: ThemeData(primarySwatch: Colors.green),
+      home: const HomeScreen(),
     );
   }
 }
