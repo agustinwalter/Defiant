@@ -1,9 +1,10 @@
+import 'package:defiant/models/poap.dart';
 import 'package:flutter/material.dart';
 
 class DetailsScreen extends StatelessWidget {
-  const DetailsScreen({super.key, required this.index});
+  const DetailsScreen({super.key, required this.poap});
 
-  final int index;
+  final Poap poap;
 
   @override
   Widget build(BuildContext context) {
@@ -41,35 +42,35 @@ class DetailsScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      'Nec Mergitur Edition #33',
-                      style: TextStyle(fontSize: 24),
+                    Text(
+                      poap.name,
+                      style: const TextStyle(fontSize: 24),
                     ),
                     const SizedBox(height: 16),
-                    const Text('Collectors of this POAP attended '),
+                    Text(poap.description),
                     const SizedBox(height: 24),
                     RichText(
-                      text: const TextSpan(
-                        style: TextStyle(color: Colors.black),
+                      text: TextSpan(
+                        style: const TextStyle(color: Colors.black),
                         children: <TextSpan>[
-                          TextSpan(
+                          const TextSpan(
                             text: 'Created at: ',
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
-                          TextSpan(text: 'Aug 19, 2022'),
+                          TextSpan(text: poap.createdAt),
                         ],
                       ),
                     ),
                     const SizedBox(height: 16),
                     RichText(
-                      text: const TextSpan(
-                        style: TextStyle(color: Colors.black),
+                      text: TextSpan(
+                        style: const TextStyle(color: Colors.black),
                         children: <TextSpan>[
-                          TextSpan(
+                          const TextSpan(
                             text: 'Network: ',
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
-                          TextSpan(text: 'xDai'),
+                          TextSpan(text: poap.chain),
                         ],
                       ),
                     )
@@ -82,11 +83,8 @@ class DetailsScreen extends StatelessWidget {
                 top: 0,
                 child: Center(
                   child: Hero(
-                    tag: '$index',
-                    child: Image.network(
-                      'https://assets.poap.xyz/adrian-sobol-2022-logo-1660921558255.png',
-                      width: 270,
-                    ),
+                    tag: poap.tokenId,
+                    child: Image.network(poap.imageUrl, width: 270),
                   ),
                 ),
               ),

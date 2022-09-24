@@ -1,11 +1,12 @@
+import 'package:defiant/models/poap.dart';
+import 'package:defiant/screens/details_screen.dart';
 import 'package:flutter/material.dart';
-import '../screens/details_screen.dart';
 import 'primary_button.dart';
 
 class PoapCard extends StatelessWidget {
-  const PoapCard({super.key, required this.index});
+  const PoapCard({super.key, required this.poap});
 
-  final int index;
+  final Poap poap;
 
   @override
   Widget build(BuildContext context) {
@@ -26,17 +27,15 @@ class PoapCard extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(6),
               child: Hero(
-                tag: '$index',
-                child: Image.network(
-                  'https://assets.poap.xyz/adrian-sobol-2022-logo-1660921558255.png',
-                ),
+                tag: poap.tokenId,
+                child: Image.network(poap.imageUrl),
               ),
             ),
-            const Expanded(
+            Expanded(
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 8),
+                padding: const EdgeInsets.symmetric(horizontal: 8),
                 child: Text(
-                  'Nec Mergitur Edition #33 ',
+                  poap.name,
                   textAlign: TextAlign.center,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 2,
@@ -52,7 +51,7 @@ class PoapCard extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (_) => DetailsScreen(index: index),
+                      builder: (_) => DetailsScreen(poap: poap),
                     ),
                   );
                 },

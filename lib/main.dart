@@ -1,5 +1,8 @@
+import 'package:defiant/cubit/poap_cubit.dart';
+import 'package:defiant/repositories/poap_repository.dart';
 import 'package:defiant/screens/home_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() => runApp(const Defiant());
 
@@ -8,11 +11,14 @@ class Defiant extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Defiant',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(primarySwatch: Colors.green),
-      home: const HomeScreen(),
+    return BlocProvider(
+      create: (_) => PoapCubit(NetworkPoapRepository()),
+      child: MaterialApp(
+        title: 'Defiant',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(primarySwatch: Colors.green),
+        home: const HomeScreen(),
+      ),
     );
   }
 }
