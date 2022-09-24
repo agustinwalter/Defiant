@@ -24,12 +24,35 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void _searchPoaps(BuildContext context) {
     final poapCubit = BlocProvider.of<PoapCubit>(context);
-    poapCubit.getPoaps(_searchController.text).then((value) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (_) => const ListScreen()),
-      );
-    });
+    poapCubit.getPoaps(_searchController.text);
+  }
+
+  void _goToListPage() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => const ListScreen(),
+      ),
+    );
+  }
+
+  void _showErrorDialog() {
+    showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        content: const Text(
+          'The entered address does not contain NFTs',
+        ),
+        contentPadding: const EdgeInsets.fromLTRB(24, 24, 24, 0),
+        actionsPadding: const EdgeInsets.fromLTRB(0, 0, 10, 6),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('CLOSE'),
+          ),
+        ],
+      ),
+    );
   }
 
   @override
@@ -64,7 +87,16 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   const SizedBox(width: 18),
-                  BlocBuilder<PoapCubit, PoapState>(
+                  BlocConsumer<PoapCubit, PoapState>(
+                    listener: (_, state) {
+                      if (state is PoapsLoaded) {
+                        if (state.poaps.isNotEmpty) {
+                          _goToListPage();
+                        } else {
+                          _showErrorDialog();
+                        }
+                      }
+                    },
                     builder: (_, state) {
                       return PrimaryButton(
                         text: 'SEARCH',

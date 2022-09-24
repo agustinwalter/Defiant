@@ -1,4 +1,6 @@
+import 'dart:convert';
 import 'package:defiant/models/poap.dart';
+import 'package:http/http.dart' as http;
 
 abstract class PoapRepository {
   Future<List<Poap>> fetchPoaps(String address);
@@ -6,54 +8,18 @@ abstract class PoapRepository {
 
 class NetworkPoapRepository implements PoapRepository {
   @override
-  Future<List<Poap>> fetchPoaps(String address) {
-    return Future.delayed(
-      const Duration(seconds: 1),
-      () {
-        return [
-          Poap(
-            tokenId: '5599933',
-            imageUrl:
-                'https://assets.poap.xyz/nec-mergitur-edition-33-2022-logo-1662634861554.png',
-            createdAt: '2022-09-08 19:58:45',
-            chain: 'xdai',
-            name: 'Nec Mergitur Edition #33',
-            description:
-                'For Nec Mergitur\'s 33rd edition (8th of September 2022).',
-          ),
-          Poap(
-            tokenId: '5599934',
-            imageUrl:
-                'https://assets.poap.xyz/nec-mergitur-edition-33-2022-logo-1662634861554.png',
-            createdAt: '2022-09-08 19:58:45',
-            chain: 'xdai',
-            name: 'Nec Mergitur Edition #33',
-            description:
-                'For Nec Mergitur\'s 33rd edition (8th of September 2022).',
-          ),
-          Poap(
-            tokenId: '5599935',
-            imageUrl:
-                'https://assets.poap.xyz/nec-mergitur-edition-33-2022-logo-1662634861554.png',
-            createdAt: '2022-09-08 19:58:45',
-            chain: 'xdai',
-            name: 'Nec Mergitur Edition #33',
-            description:
-                'For Nec Mergitur\'s 33rd edition (8th of September 2022).',
-          ),
-          Poap(
-            tokenId: '5599936',
-            imageUrl:
-                'https://assets.poap.xyz/nec-mergitur-edition-33-2022-logo-1662634861554.png',
-            createdAt: '2022-09-08 19:58:45',
-            chain: 'xdai',
-            name: 'Nec Mergitur Edition #33',
-            description:
-                'For Nec Mergitur\'s 33rd edition (8th of September 2022).',
-          ),
-        ];
-      },
-    );
+  Future<List<Poap>> fetchPoaps(String address) async {
+    final response = await http.get(Uri(
+      scheme: 'https',
+      host: 'api.poap.xyz',
+      path: 'actions/scan/$address',
+    ));
+    if (response.statusCode == 200) {
+      return (jsonDecode(response.body) as List)
+          .map((json) => Poap.fromJSON(json: json))
+          .toList();
+    }
+    return [];
   }
 }
 

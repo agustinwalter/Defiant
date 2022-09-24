@@ -13,7 +13,7 @@ class ListScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text(
           'Your NFTs',
-          style: TextStyle(fontWeight: FontWeight.w400),
+          style: TextStyle(fontWeight: FontWeight.w300),
         ),
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,

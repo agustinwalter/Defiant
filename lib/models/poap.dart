@@ -14,4 +14,12 @@ class Poap {
     required this.name,
     required this.description,
   });
+
+  Poap.fromJSON({required Map json})
+      : tokenId = json['tokenId'],
+        imageUrl = json['event']['image_url'],
+        createdAt = json['created'],
+        chain = json['chain'],
+        name = json['event']['name'],
+        description = json['event']['description'];
 }
