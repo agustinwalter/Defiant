@@ -1,4 +1,5 @@
 import 'package:defiant/models/poap.dart';
+import 'package:defiant/widget/poap_image.dart';
 import 'package:flutter/material.dart';
 
 class DetailsScreen extends StatelessWidget {
@@ -82,9 +83,10 @@ class DetailsScreen extends StatelessWidget {
                 right: 0,
                 top: 0,
                 child: Center(
-                  child: Hero(
-                    tag: poap.tokenId,
-                    child: Image.network(poap.imageUrl, width: 270),
+                  child: PoapImage(
+                    heroTag: poap.tokenId,
+                    imageUrl: poap.imageUrl,
+                    width: 270,
                   ),
                 ),
               ),

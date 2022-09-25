@@ -1,5 +1,6 @@
 import 'package:defiant/models/poap.dart';
 import 'package:defiant/screens/details_screen.dart';
+import 'package:defiant/widget/poap_image.dart';
 import 'package:flutter/material.dart';
 import 'primary_button.dart';
 
@@ -26,9 +27,9 @@ class PoapCard extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.all(6),
-              child: Hero(
-                tag: poap.tokenId,
-                child: Image.network(poap.imageUrl),
+              child: PoapImage(
+                heroTag: poap.tokenId,
+                imageUrl: poap.imageUrl,
               ),
             ),
             Expanded(

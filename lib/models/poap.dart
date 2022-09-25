@@ -15,11 +15,22 @@ class Poap {
     required this.description,
   });
 
-  Poap.fromJSON({required Map json})
+  Poap.fromJson(Map json)
       : tokenId = json['tokenId'],
         imageUrl = json['event']['image_url'],
         createdAt = json['created'],
         chain = json['chain'],
         name = json['event']['name'],
         description = json['event']['description'];
+
+  Map<String, dynamic> toJson() => {
+        'tokenId': tokenId,
+        'created': createdAt,
+        'chain': chain,
+        'event': {
+          'image_url': imageUrl,
+          'name': name,
+          'description': description,
+        },
+      };
 }
