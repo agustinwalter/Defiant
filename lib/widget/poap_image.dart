@@ -17,10 +17,7 @@ class PoapImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Hero(
       tag: heroTag,
-      child: CachedNetworkImage(
-        imageUrl: imageUrl,
-        width: width,
-      ),
+      child: CachedNetworkImage(imageUrl: imageUrl, width: width),
     );
   }
 }

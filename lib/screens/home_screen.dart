@@ -1,6 +1,7 @@
 import 'package:defiant/cubit/poap_cubit.dart';
 import 'package:defiant/screens/list_screen.dart';
 import 'package:defiant/widget/primary_button.dart';
+import 'package:ethereum_addresses/ethereum_addresses.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -23,26 +24,26 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _searchPoaps(BuildContext context) {
-    final poapCubit = BlocProvider.of<PoapCubit>(context);
-    poapCubit.getPoaps(_searchController.text);
+    if (isValidEthereumAddress(_searchController.text)) {
+      final poapCubit = BlocProvider.of<PoapCubit>(context);
+      poapCubit.getPoaps(_searchController.text);
+    } else {
+      _showErrorDialog(message: 'The Ethereum address is invalid.');
+    }
   }
 
   void _goToListPage() {
     Navigator.push(
       context,
-      MaterialPageRoute(
-        builder: (_) => const ListScreen(),
-      ),
+      MaterialPageRoute(builder: (_) => const ListScreen()),
     );
   }
 
-  void _showErrorDialog() {
+  void _showErrorDialog({required String message}) {
     showDialog(
       context: context,
       builder: (_) => AlertDialog(
-        content: const Text(
-          'The entered address does not contain NFTs',
-        ),
+        content: Text(message),
         contentPadding: const EdgeInsets.fromLTRB(24, 24, 24, 0),
         actionsPadding: const EdgeInsets.fromLTRB(0, 0, 10, 6),
         actions: [
@@ -93,8 +94,13 @@ class _HomeScreenState extends State<HomeScreen> {
                         if (state.poaps.isNotEmpty) {
                           _goToListPage();
                         } else {
-                          _showErrorDialog();
+                          _showErrorDialog(
+                            message:
+                                'The Ethereum address does not contain NFTs.',
+                          );
                         }
+                      } else if (state is PoapsError) {
+                        _showErrorDialog(message: state.message);
                       }
                     },
                     builder: (_, state) {

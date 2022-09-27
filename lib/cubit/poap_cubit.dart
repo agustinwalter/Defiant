@@ -23,7 +23,7 @@ class PoapCubit extends Cubit<PoapState> {
         }
       }
       emit(PoapsLoaded(poaps));
-    } on NetworkException {
+    } catch (e) {
       emit(const PoapsError("Couldn't fetch Poaps."));
     }
   }

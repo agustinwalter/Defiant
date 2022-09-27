@@ -46,5 +46,3 @@ class LocalPoapRepository implements PoapRepository {
     await _poapStore.add(await _db, localPoapsRegistry.toJson());
   }
 }
-
-class NetworkException implements Exception {}
