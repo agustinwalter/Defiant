@@ -1,16 +1,11 @@
-# defiant
+# Agustin Walter Defiant
 
-A new Flutter project.
+This app was created using Flutter v3.3.1. The project is configured to use [fvm](https://fvm.app), so you can use it.
 
-## Getting Started
+You can see a version of the finished app, in the following [link](https://drive.google.com/file/d/1q_1kco3H052lsAj7F16pv2ft4yMdZEyW/view?usp=sharing).
 
-This project is a starting point for a Flutter application.
+### Run the project
 
-A few resources to get you started if this is your first Flutter project:
+If you are in VS Code just hit the play button or press f5.
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+If you like the terminal: `flutter run lib/main.dart` or `fvm flutter run lib/main.dart`
